@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
-import type { User, UserRole } from '@/types';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import type { User } from '@/types';
 
 interface AuthContextType {
   user: User | null;
@@ -28,7 +28,7 @@ const DEMO_USERS: Record<string, { password: string; user: User }> = {
   },
 };
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -40,19 +40,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         setToken(savedToken);
         setUser(JSON.parse(savedUser));
-      } catch { /* ignore */ }
+      } catch {
+        localStorage.removeItem('rcms_token');
+        localStorage.removeItem('rcms_user');
+      }
     }
     setLoading(false);
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
+    const trimmedEmail = email.trim().toLowerCase();
+    const trimmedPassword = password.trim();
+
+    if (!trimmedEmail || !trimmedPassword) {
+      throw new Error('Please provide email and password');
+    }
+
     // Try real backend first
     const API_URL = import.meta.env.VITE_API_URL;
     if (API_URL) {
       const res = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: trimmedEmail, password: trimmedPassword }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Login failed');
@@ -64,11 +74,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     // Fallback to demo accounts
-    const demo = DEMO_USERS[email.toLowerCase()];
-    if (!demo || demo.password !== password) {
-      throw new Error('Invalid email or password');
+    const demo = DEMO_USERS[trimmedEmail];
+    if (!demo || demo.password !== trimmedPassword) {
+      throw new Error('Invalid email or password. Try the demo accounts below.');
     }
-    const fakeToken = 'demo_token_' + demo.user.role;
+    const fakeToken = 'demo_token_' + demo.user.role + '_' + Date.now();
     setToken(fakeToken);
     setUser(demo.user);
     localStorage.setItem('rcms_token', fakeToken);

@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, Users, UserCog, Stethoscope, Pill, FileText,
-  ClipboardList, LogOut, Heart,
+  ClipboardList, LogOut, Heart, Shield,
 } from 'lucide-react';
 import { NavLink } from '@/components/NavLink';
 import { useAuth } from '@/contexts/AuthContext';
@@ -18,6 +18,7 @@ const allNavItems = [
   { title: 'Medicines', url: '/medicines', icon: Pill, roles: ['admin', 'staff'] },
   { title: 'Visits', url: '/visits', icon: ClipboardList, roles: ['admin', 'worker'] },
   { title: 'Reports', url: '/reports', icon: FileText, roles: ['admin'] },
+  { title: 'Users', url: '/users', icon: Shield, roles: ['admin'] },
 ];
 
 export function AppSidebar() {
@@ -33,7 +34,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel className="px-4 py-6">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-primary">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg gradient-primary shrink-0">
                 <Heart className="h-4 w-4 text-primary-foreground" />
               </div>
               {!collapsed && (

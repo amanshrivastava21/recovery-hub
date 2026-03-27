@@ -13,6 +13,7 @@ import StaffPage from "@/pages/StaffPage";
 import MedicinesPage from "@/pages/MedicinesPage";
 import VisitsPage from "@/pages/VisitsPage";
 import ReportsPage from "@/pages/ReportsPage";
+import UsersPage from "@/pages/UsersPage";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/medicines" element={<ProtectedLayout allowedRoles={['admin', 'staff']}><MedicinesPage /></ProtectedLayout>} />
             <Route path="/visits" element={<ProtectedLayout allowedRoles={['admin', 'worker']}><VisitsPage /></ProtectedLayout>} />
             <Route path="/reports" element={<ProtectedLayout allowedRoles={['admin']}><ReportsPage /></ProtectedLayout>} />
+            <Route path="/users" element={<ProtectedLayout allowedRoles={['admin']}><UsersPage /></ProtectedLayout>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
