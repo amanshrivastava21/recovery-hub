@@ -1,26 +1,49 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Toaster as Sonner } from "@/components/ui/sonner";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Index from "./pages/Index.tsx";
-import NotFound from "./pages/NotFound.tsx";
+import { AuthProvider } from "@/contexts/AuthContext";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import AppLayout from "@/components/layout/AppLayout";
+import LoginPage from "@/pages/LoginPage";
+import DashboardPage from "@/pages/DashboardPage";
+import PatientsPage from "@/pages/PatientsPage";
+import WorkersPage from "@/pages/WorkersPage";
+import StaffPage from "@/pages/StaffPage";
+import MedicinesPage from "@/pages/MedicinesPage";
+import VisitsPage from "@/pages/VisitsPage";
+import ReportsPage from "@/pages/ReportsPage";
+import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const ProtectedLayout = ({ children, allowedRoles }: { children: React.ReactNode; allowedRoles?: ('admin' | 'worker' | 'staff')[] }) => (
+  <ProtectedRoute allowedRoles={allowedRoles}>
+    <AppLayout>{children}</AppLayout>
+  </ProtectedRoute>
+);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<ProtectedLayout><DashboardPage /></ProtectedLayout>} />
+            <Route path="/patients" element={<ProtectedLayout><PatientsPage /></ProtectedLayout>} />
+            <Route path="/workers" element={<ProtectedLayout allowedRoles={['admin']}><WorkersPage /></ProtectedLayout>} />
+            <Route path="/staff" element={<ProtectedLayout allowedRoles={['admin']}><StaffPage /></ProtectedLayout>} />
+            <Route path="/medicines" element={<ProtectedLayout allowedRoles={['admin', 'staff']}><MedicinesPage /></ProtectedLayout>} />
+            <Route path="/visits" element={<ProtectedLayout allowedRoles={['admin', 'worker']}><VisitsPage /></ProtectedLayout>} />
+            <Route path="/reports" element={<ProtectedLayout allowedRoles={['admin']}><ReportsPage /></ProtectedLayout>} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 
