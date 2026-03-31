@@ -1,6 +1,7 @@
 import type {
   Patient, Medicine, Visit, DashboardStats, User, StaffMember, Worker
 } from '@/types';
+import { registerUser } from '@/contexts/AuthContext';
 
 // ─── Configuration ───────────────────────────────────────
 const API_URL = import.meta.env.VITE_API_URL || '';
