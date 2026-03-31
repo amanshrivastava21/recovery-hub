@@ -130,6 +130,7 @@ const LoginPage = () => {
                 { label: 'Admin', email: 'admin@rcms.com', pw: 'Admin@123456', color: 'bg-primary/10 text-primary hover:bg-primary/20' },
                 { label: 'Worker', email: 'worker@rcms.com', pw: 'Worker@123', color: 'bg-info/10 text-info hover:bg-info/20' },
                 { label: 'Staff', email: 'staff@rcms.com', pw: 'Staff@123', color: 'bg-success/10 text-success hover:bg-success/20' },
+                { label: 'Patient', email: 'patient@rcms.com', pw: 'Patient@123', color: 'bg-warning/10 text-warning hover:bg-warning/20' },
               ].map((d) => (
                 <button
                   key={d.label}
