@@ -26,6 +26,10 @@ const DEMO_USERS: Record<string, { password: string; user: User }> = {
     password: 'Staff@123',
     user: { id: '3', name: 'Dr. Sarah Staff', email: 'staff@rcms.com', role: 'staff', phone: '555-0103', isActive: true },
   },
+  'patient@rcms.com': {
+    password: 'Patient@123',
+    user: { id: '4', name: 'Rahul Sharma', email: 'patient@rcms.com', role: 'patient', phone: '555-0104', isActive: true },
+  },
 };
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {

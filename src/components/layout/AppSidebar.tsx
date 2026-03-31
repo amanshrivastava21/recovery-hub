@@ -12,6 +12,7 @@ import {
 
 const allNavItems = [
   { title: 'Dashboard', url: '/dashboard', icon: LayoutDashboard, roles: ['admin', 'worker', 'staff'] },
+  { title: 'My Dashboard', url: '/patient-dashboard', icon: Heart, roles: ['patient'] },
   { title: 'Patients', url: '/patients', icon: Users, roles: ['admin', 'staff', 'worker'] },
   { title: 'Workers', url: '/workers', icon: UserCog, roles: ['admin'] },
   { title: 'Staff', url: '/staff', icon: Stethoscope, roles: ['admin'] },
