@@ -32,6 +32,13 @@ const DEMO_USERS: Record<string, { password: string; user: User }> = {
   },
 };
 
+// Runtime-registered users (from Add User / Sign Up)
+const runtimeUsers: Record<string, { password: string; user: User }> = {};
+
+export const registerUser = (email: string, password: string, user: User) => {
+  runtimeUsers[email.trim().toLowerCase()] = { password, user };
+};
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
@@ -77,8 +84,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
-    // Fallback to demo accounts
-    const demo = DEMO_USERS[trimmedEmail];
+    // Fallback to demo + runtime accounts
+    const demo = DEMO_USERS[trimmedEmail] || runtimeUsers[trimmedEmail];
     if (!demo || demo.password !== trimmedPassword) {
       throw new Error('Invalid email or password. Try the demo accounts below.');
     }
