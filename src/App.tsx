@@ -7,6 +7,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import AppLayout from "@/components/layout/AppLayout";
 import LoginPage from "@/pages/LoginPage";
 import DashboardPage from "@/pages/DashboardPage";
+import PatientDashboardPage from "@/pages/PatientDashboardPage";
 import PatientsPage from "@/pages/PatientsPage";
 import WorkersPage from "@/pages/WorkersPage";
 import StaffPage from "@/pages/StaffPage";
@@ -18,7 +19,7 @@ import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const ProtectedLayout = ({ children, allowedRoles }: { children: React.ReactNode; allowedRoles?: ('admin' | 'worker' | 'staff')[] }) => (
+const ProtectedLayout = ({ children, allowedRoles }: { children: React.ReactNode; allowedRoles?: ('admin' | 'worker' | 'staff' | 'patient')[] }) => (
   <ProtectedRoute allowedRoles={allowedRoles}>
     <AppLayout>{children}</AppLayout>
   </ProtectedRoute>
@@ -34,7 +35,8 @@ const App = () => (
             <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<ProtectedLayout><DashboardPage /></ProtectedLayout>} />
-            <Route path="/patients" element={<ProtectedLayout><PatientsPage /></ProtectedLayout>} />
+            <Route path="/patient-dashboard" element={<ProtectedLayout allowedRoles={['patient']}><PatientDashboardPage /></ProtectedLayout>} />
+            <Route path="/patients" element={<ProtectedLayout allowedRoles={['admin', 'worker', 'staff']}><PatientsPage /></ProtectedLayout>} />
             <Route path="/workers" element={<ProtectedLayout allowedRoles={['admin']}><WorkersPage /></ProtectedLayout>} />
             <Route path="/staff" element={<ProtectedLayout allowedRoles={['admin']}><StaffPage /></ProtectedLayout>} />
             <Route path="/medicines" element={<ProtectedLayout allowedRoles={['admin', 'staff']}><MedicinesPage /></ProtectedLayout>} />

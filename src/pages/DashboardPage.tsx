@@ -597,6 +597,12 @@ const DashboardPage = () => {
   const enrichedStats = { ...stats, _firstName: firstName };
   const props: DashboardViewProps = { stats: enrichedStats, patients, visits, workers, staff, medicines, navigate, userName: user?.name || '' };
 
+  // Patient role redirects to their own dashboard
+  if (user?.role === 'patient') {
+    navigate('/patient-dashboard', { replace: true });
+    return null;
+  }
+
   if (user?.role === 'worker') return <WorkerDashboard {...props} />;
   if (user?.role === 'staff') return <StaffDashboard {...props} />;
   return <AdminDashboard {...props} />;
