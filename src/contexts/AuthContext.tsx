@@ -32,6 +32,13 @@ const DEMO_USERS: Record<string, { password: string; user: User }> = {
   },
 };
 
+// Runtime-registered users (from Add User / Sign Up)
+const runtimeUsers: Record<string, { password: string; user: User }> = {};
+
+export const registerUser = (email: string, password: string, user: User) => {
+  runtimeUsers[email.trim().toLowerCase()] = { password, user };
+};
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
