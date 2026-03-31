@@ -256,6 +256,9 @@ export const api = {
     }
     const u = { id: String(Date.now()), name: data.name, email: data.email, role: data.role, phone: data.phone, isActive: data.isActive ?? true };
     users = [...users, u];
+    // Register in auth system so the new user can login
+    const password = data.password || 'Password@123';
+    registerUser(data.email, password, u);
     return u;
   },
   deleteUser: async (id: string): Promise<void> => {
