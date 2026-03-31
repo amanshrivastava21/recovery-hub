@@ -84,8 +84,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
-    // Fallback to demo accounts
-    const demo = DEMO_USERS[trimmedEmail];
+    // Fallback to demo + runtime accounts
+    const demo = DEMO_USERS[trimmedEmail] || runtimeUsers[trimmedEmail];
     if (!demo || demo.password !== trimmedPassword) {
       throw new Error('Invalid email or password. Try the demo accounts below.');
     }
