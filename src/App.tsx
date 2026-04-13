@@ -1,11 +1,14 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import AppLayout from "@/components/layout/AppLayout";
 import LoginPage from "@/pages/LoginPage";
+import HomePage from "@/pages/HomePage";
+import AboutPage from "@/pages/AboutPage";
+import ContactPage from "@/pages/ContactPage";
 import DashboardPage from "@/pages/DashboardPage";
 import PatientDashboardPage from "@/pages/PatientDashboardPage";
 import PatientsPage from "@/pages/PatientsPage";
@@ -32,8 +35,10 @@ const App = () => (
         <Toaster />
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<ProtectedLayout><DashboardPage /></ProtectedLayout>} />
             <Route path="/patient-dashboard" element={<ProtectedLayout allowedRoles={['patient']}><PatientDashboardPage /></ProtectedLayout>} />
             <Route path="/patients" element={<ProtectedLayout allowedRoles={['admin', 'worker', 'staff']}><PatientsPage /></ProtectedLayout>} />
