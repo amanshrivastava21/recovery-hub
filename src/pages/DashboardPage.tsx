@@ -345,10 +345,10 @@ const WorkerDashboard = ({ stats, patients, visits, navigate, userName }: Dashbo
       />
 
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
-        <StatCard title="My Patients" value={myPatients.length} icon={Users} variant="primary" />
-        <StatCard title="Active Cases" value={activePatients.length} icon={Heart} variant="info" />
-        <StatCard title="Total Visits" value={myVisits.length} icon={ClipboardList} variant="warning" />
-        <StatCard title="Avg Recovery" value={`${stats.averageRecoveryDays}d`} icon={Clock} variant="success" />
+        <StatCard title="My Patients" value={myPatients.length} icon={Users} variant="primary" href="/patients" />
+        <StatCard title="Active Cases" value={activePatients.length} icon={Heart} variant="info" href="/patients" />
+        <StatCard title="Total Visits" value={myVisits.length} icon={ClipboardList} variant="warning" href="/visits" />
+        <StatCard title="Avg Recovery" value={`${stats.averageRecoveryDays}d`} icon={Clock} variant="success" href="/reports" />
       </div>
 
       {/* Charts */}
@@ -453,10 +453,10 @@ const StaffDashboard = ({ stats, patients, medicines, navigate }: DashboardViewP
       />
 
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
-        <StatCard title="Active Patients" value={stats.activePatients} icon={UserCheck} variant="primary" />
-        <StatCard title="In Treatment" value={inTreatment} icon={Activity} variant="info" />
-        <StatCard title="Recovering" value={recovering} icon={Heart} variant="success" />
-        <StatCard title="Medicines" value={stats.totalMedicines} icon={Pill} variant="warning" />
+        <StatCard title="Active Patients" value={stats.activePatients} icon={UserCheck} variant="primary" href="/patients" />
+        <StatCard title="In Treatment" value={inTreatment} icon={Activity} variant="info" href="/patients" />
+        <StatCard title="Recovering" value={recovering} icon={Heart} variant="success" href="/patients" />
+        <StatCard title="Medicines" value={stats.totalMedicines} icon={Pill} variant="warning" href="/medicines" />
       </div>
 
       {/* Charts */}
