@@ -144,18 +144,18 @@ const AdminDashboard = ({ stats, patients, visits, workers, staff, medicines, na
 
       {/* Primary Stats */}
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
-        <StatCard title="Total Patients" value={stats.totalPatients} icon={Users} variant="primary" />
-        <StatCard title="Active Patients" value={stats.activePatients} icon={UserCheck} variant="info" />
-        <StatCard title="Discharged" value={stats.dischargedPatients} icon={UserMinus} variant="success" />
-        <StatCard title="Recovery Rate" value={`${stats.recoveryRate}%`} icon={TrendingUp} variant="success" description="Of total patients" />
+        <StatCard title="Total Patients" value={stats.totalPatients} icon={Users} variant="primary" href="/patients" />
+        <StatCard title="Active Patients" value={stats.activePatients} icon={UserCheck} variant="info" href="/patients" />
+        <StatCard title="Discharged" value={stats.dischargedPatients} icon={UserMinus} variant="success" href="/patients" />
+        <StatCard title="Recovery Rate" value={`${stats.recoveryRate}%`} icon={TrendingUp} variant="success" description="Of total patients" href="/reports" />
       </div>
 
       {/* Secondary Stats */}
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
-        <StatCard title="Workers" value={stats.totalWorkers} icon={UserCog} variant="info" />
-        <StatCard title="Staff" value={stats.totalStaff} icon={Stethoscope} variant="warning" />
-        <StatCard title="Medicines" value={stats.totalMedicines} icon={Pill} variant="primary" />
-        <StatCard title="Avg Recovery" value={`${stats.averageRecoveryDays} days`} icon={Clock} variant="default" />
+        <StatCard title="Workers" value={stats.totalWorkers} icon={UserCog} variant="info" href="/workers" />
+        <StatCard title="Staff" value={stats.totalStaff} icon={Stethoscope} variant="warning" href="/staff" />
+        <StatCard title="Medicines" value={stats.totalMedicines} icon={Pill} variant="primary" href="/medicines" />
+        <StatCard title="Avg Recovery" value={`${stats.averageRecoveryDays} days`} icon={Clock} variant="default" href="/reports" />
       </div>
 
       {/* Charts Row */}
