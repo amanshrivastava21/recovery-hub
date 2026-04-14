@@ -1,4 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface StatCardProps {
   title: string;
@@ -6,6 +7,7 @@ interface StatCardProps {
   icon: LucideIcon;
   description?: string;
   variant?: 'default' | 'primary' | 'success' | 'warning' | 'info';
+  href?: string;
 }
 
 const variantStyles = {
@@ -24,9 +26,17 @@ const iconVariantStyles = {
   info: 'bg-info/10 text-info',
 };
 
-const StatCard = ({ title, value, icon: Icon, description, variant = 'default' }: StatCardProps) => {
+const StatCard = ({ title, value, icon: Icon, description, variant = 'default', href }: StatCardProps) => {
+  const navigate = useNavigate();
+
   return (
-    <div className={`rounded-xl border p-5 transition-shadow hover:shadow-elevated ${variantStyles[variant]}`}>
+    <div
+      role={href ? 'button' : undefined}
+      tabIndex={href ? 0 : undefined}
+      onClick={href ? () => navigate(href) : undefined}
+      onKeyDown={href ? (e) => { if (e.key === 'Enter' || e.key === ' ') navigate(href); } : undefined}
+      className={`rounded-xl border p-5 transition-all hover:shadow-elevated ${variantStyles[variant]} ${href ? 'cursor-pointer hover:-translate-y-0.5 active:scale-[0.98]' : ''}`}
+    >
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm font-medium text-muted-foreground">{title}</p>
