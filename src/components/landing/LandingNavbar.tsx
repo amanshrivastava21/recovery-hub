@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X, Heart, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 const NAV_LINKS = [
   { label: "Home", path: "/" },
@@ -13,6 +14,7 @@ const LandingNavbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -51,6 +53,14 @@ const LandingNavbar = () => {
                 {link.label}
               </Link>
             ))}
+            {isAuthenticated && (
+              <Link to={user?.role === 'patient' ? '/patient-dashboard' : '/dashboard'}>
+                <Button size="sm" variant="outline" className="gap-1.5">
+                  <LayoutDashboard className="h-4 w-4" />
+                  Dashboard
+                </Button>
+              </Link>
+            )}
             <Link to="/login">
               <Button size="sm">Login</Button>
             </Link>
@@ -82,6 +92,14 @@ const LandingNavbar = () => {
                 {link.label}
               </Link>
             ))}
+            {isAuthenticated && (
+              <Link to={user?.role === 'patient' ? '/patient-dashboard' : '/dashboard'} onClick={() => setOpen(false)}>
+                <Button size="sm" variant="outline" className="w-full gap-1.5">
+                  <LayoutDashboard className="h-4 w-4" />
+                  Dashboard
+                </Button>
+              </Link>
+            )}
             <Link to="/login" onClick={() => setOpen(false)}>
               <Button size="sm" className="w-full">Login</Button>
             </Link>
