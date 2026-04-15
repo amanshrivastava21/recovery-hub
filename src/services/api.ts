@@ -31,7 +31,7 @@ let mockPatients: Patient[] = [
     id: 'p1', fullName: 'Ahmed Khan', age: 32, gender: 'male',
     contact: { phone: '555-1001', email: 'ahmed@mail.com', address: '123 Main St' },
     emergencyContact: { name: 'Ali Khan', phone: '555-2001', relationship: 'Brother' },
-    addictionType: 'Substance Abuse', medicalHistory: 'No prior conditions',
+    addictionType: 'Alcohol Dependency', medicalHistory: 'No prior conditions',
     admissionDate: '2025-11-15', recoveryStatus: 'in-treatment',
     assignedWorker: '2', assignedStaff: '3', treatmentPlan: 'CBT + Group Therapy',
     progressNotes: [
