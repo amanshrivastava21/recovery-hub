@@ -88,15 +88,14 @@ const LoginPage = () => {
           <h2 className="font-display text-2xl font-bold">Welcome back</h2>
           <p className="mt-1 text-sm text-muted-foreground">Sign in to your account</p>
 
-          {isAuthenticated && (
-            <Button
-              variant="outline"
-              className="mt-4 w-full"
-              onClick={() => navigate('/dashboard')}
-            >
-              Go to Dashboard →
-            </Button>
-          )}
+          <Button
+            variant="outline"
+            className="mt-4 w-full"
+            onClick={() => navigate(isAuthenticated ? '/dashboard' : '/login')}
+            disabled={!isAuthenticated}
+          >
+            {isAuthenticated ? 'Go to Dashboard →' : 'Login first to access Dashboard'}
+          </Button>
 
           {error && (
             <div className="mt-4 flex items-center gap-2 rounded-lg bg-destructive/10 p-3 text-sm text-destructive">
