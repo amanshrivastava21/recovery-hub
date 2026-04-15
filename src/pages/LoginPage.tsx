@@ -88,6 +88,16 @@ const LoginPage = () => {
           <h2 className="font-display text-2xl font-bold">Welcome back</h2>
           <p className="mt-1 text-sm text-muted-foreground">Sign in to your account</p>
 
+          {isAuthenticated && (
+            <Button
+              variant="outline"
+              className="mt-4 w-full"
+              onClick={() => navigate('/dashboard')}
+            >
+              Go to Dashboard →
+            </Button>
+          )}
+
           {error && (
             <div className="mt-4 flex items-center gap-2 rounded-lg bg-destructive/10 p-3 text-sm text-destructive">
               <AlertCircle className="h-4 w-4 shrink-0" />
