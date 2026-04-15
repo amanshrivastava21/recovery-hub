@@ -92,6 +92,14 @@ const LandingNavbar = () => {
                 {link.label}
               </Link>
             ))}
+            {isAuthenticated && (
+              <Link to={user?.role === 'patient' ? '/patient-dashboard' : '/dashboard'} onClick={() => setOpen(false)}>
+                <Button size="sm" variant="outline" className="w-full gap-1.5">
+                  <LayoutDashboard className="h-4 w-4" />
+                  Dashboard
+                </Button>
+              </Link>
+            )}
             <Link to="/login" onClick={() => setOpen(false)}>
               <Button size="sm" className="w-full">Login</Button>
             </Link>
